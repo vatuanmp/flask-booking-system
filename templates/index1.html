@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt lịch khám bệnh</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Đặt lịch khám bệnh</h1>
+    <form action="/" method="post">
+        <label for="name">Họ tên:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="dob">Ngày sinh:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="date">Chọn ngày khám:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="time">Chọn giờ khám:</label>
+        <select id="time" name="time">
+            <option value="">Chọn giờ</option>
+        </select>
+
+        <button type="submit">Đăng ký</button>
+    </form>
+
+    <script>
+        document.getElementById("date").addEventListener("change", function() {
+            let selectedDate = this.value;
+            fetch(`/get_available_times?date=${selectedDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    let timeSelect = document.getElementById("time");
+        
+                    // Xóa danh sách cũ
+                    timeSelect.innerHTML = "<option value=''>Chọn giờ</option>";
+        
+                    // Thêm danh sách giờ hợp lệ
+                    data.available_times.forEach(time => {
+                        let option = document.createElement("option");
+                        option.value = time;
+                        option.textContent = time;
+                        timeSelect.appendChild(option);
+                    });
+                });
+        });
+        </script>
+</body>
+</html>

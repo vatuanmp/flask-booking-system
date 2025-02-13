@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt lịch khám bệnh</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Đặt lịch khám bệnh</h1>
+        <form action="/" method="post" id="bookingForm">
+            <label for="name">Họ tên:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="dob">Ngày sinh:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="date">Chọn ngày khám:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Chọn giờ khám:</label>
+            <select id="time" name="time">
+                <option value="">Chọn giờ</option>
+            </select>
+
+            <button type="submit">Đăng ký</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("date").addEventListener("change", function() {
+            let selectedDate = this.value;
+            fetch(`/get_available_times?date=${selectedDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    let timeSelect = document.getElementById("time");
+                    timeSelect.innerHTML = "<option value=''>Chọn giờ</option>";
+                    data.available_times.forEach(time => {
+                        let option = document.createElement("option");
+                        option.value = time;
+                        option.textContent = time;
+                        timeSelect.appendChild(option);
+                    });
+                });
+        });
+        
+        document.getElementById("bookingForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let form = this;
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form)
+            }).then(response => response.json())
+            .then(data => {
+                alert("Đăng ký thành công!");
+                form.reset();
+            }).catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
