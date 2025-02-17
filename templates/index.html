@@ -14,7 +14,10 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
         }
+    
         .container {
             background: white;
             padding: 20px;
@@ -22,23 +25,39 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
+            box-sizing: border-box;
         }
+    
         h1 {
             text-align: center;
             color: #333;
+            font-size: 1.5em;
         }
+    
         label {
             font-weight: bold;
             margin-top: 10px;
             display: block;
+            font-size: 14px;
+            color: #555;
         }
-        input, select, button {
+    
+        input, select, textarea, button {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
         }
+    
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            max-height: 200px;
+        }
+    
         button {
             background-color: #28a745;
             color: white;
@@ -46,10 +65,32 @@
             border: none;
             cursor: pointer;
             margin-top: 15px;
+            transition: background 0.3s;
         }
+    
         button:hover {
             background-color: #218838;
         }
+    
+        /* Responsive cho mobile */
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+    
+            h1 {
+                font-size: 1.3em;
+            }
+    
+            input, select, textarea, button {
+                font-size: 14px;
+            }
+    
+            textarea {
+                min-height: 100px;
+            }
+        }
+
     </style>
 </head>
 <body>
