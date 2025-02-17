@@ -150,6 +150,17 @@
         
         document.getElementById("bookingForm").addEventListener("submit", function(event) {
             event.preventDefault();
+
+            // Lấy giá trị của trường giờ khám
+            let gio_kham = document.getElementById("time").value;
+    
+            // Kiểm tra nếu không có giờ khám được chọn
+            if (!gio_kham) {
+                event.preventDefault();  // Ngừng gửi form
+                alert("Vui lòng chọn giờ khám!");
+                return false;
+            }
+                
             let form = this;
             fetch(form.action, {
                 method: form.method,
