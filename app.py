@@ -73,10 +73,11 @@ def dang_ky():
         #trang_thai = request.form.get("trangthai")
         trang_thai = "Chưa khám"
         
-        if not ngay_kham or not gio_kham:
+        if not ngay_kham:
             #return "Vui lòng chọn ngày và giờ khám hợp lệ!"
-            return jsonify({"error": "Vui lòng chọn ngày và giờ khám hợp lệ!"})
-
+            return jsonify({"error": "Vui lòng chọn ngày khám hợp lệ!"})
+        if not gio_kham:
+            return jsonify({"error": "Vui lòng chọn giờ khám hợp lệ!"})
         try:
             sheet_ngay_kham = spreadsheet.worksheet(ngay_kham)
         except gspread.exceptions.WorksheetNotFound:
