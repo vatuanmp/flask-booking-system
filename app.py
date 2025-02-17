@@ -91,7 +91,11 @@ def dang_ky():
         sheet_tong_hop.append_row([ten, ngay_sinh, ngay_kham, gio_kham])
         sheet_ngay_kham.append_row([ten, ngay_sinh, ngay_kham, gio_kham])
 
-        return f"Đăng ký thành công cho {ten} vào ngày {ngay_kham} lúc {gio_kham}!"
+        #return f"Đăng ký thành công cho {ten} vào ngày {ngay_kham} lúc {gio_kham}!"
+        return jsonify({
+            "message": f"Đăng ký thành công cho {ten} vào ngày {ngay_kham} lúc {gio_kham}!"
+        })
+
 
     return render_template("index.html")
 
