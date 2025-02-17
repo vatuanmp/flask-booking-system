@@ -99,7 +99,7 @@
                 body: new FormData(form)
             }).then(response => response.json())
             .then(data => {
-                alert("Đăng ký thành công!");
+                alert(data.message);
                 form.reset();
             }).catch(error => console.error("Error:", error));
         });
