@@ -101,30 +101,30 @@
     <div class="container">
         <h1>Đặt lịch khám bệnh</h1>
         <form action="/" method="post" id="bookingForm">
-            <label for="name">Họ tên:</label>
+            <label for="name">Họ tên (bắt buộc):</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="dob">Ngày sinh:</label>
+            <label for="dob">Ngày sinh (bắt buộc):</label>
             <input type="date" id="dob" name="dob" required>
 
-            <label for="date">Chọn ngày khám:</label>
+            <label for="date">Chọn ngày khám (bắt buộc):</label>
             <input type="date" id="date" name="date" required>
 
-            <label for="time">Chọn giờ khám:</label>
+            <label for="time">Chọn giờ khám (bắt buộc):</label>
             <select id="time" name="time">
                 <option value="">Chọn giờ</option>
             </select>
 
-            <label for="email">Email:</label>
+            <label for="email">Email (không bắt buộc):</label>
             <input type="email" id="email" name="email">
 
-            <label for="tel">Số điện thoại:</label>
+            <label for="tel">Số điện thoại  (bắt buộc):</label>
             <input type="tel" id="tel" name="tel">
             
-            <label for="description">Mô tả bệnh:</label>
+            <label for="description">Mô tả bệnh (không bắt buộc):</label>
             <textarea id="description" name="description" rows="3"></textarea>
 
-            <label for="note">Ghi chú:</label>
+            <label for="note">Ghi chú (không bắt buộc):</label>
             <textarea id="note" name="note" rows="3"></textarea>
             
             <button type="submit">Đăng ký</button>
