@@ -76,7 +76,7 @@ def dang_ky():
         if not ngay_kham:
             #return "Vui lòng chọn ngày và giờ khám hợp lệ!"
             return jsonify({"error": "Vui lòng chọn ngày khám hợp lệ!"})
-        if not gio_kham:
+        if not gio_kham or gio_kham == "":
             return jsonify({"error": "Vui lòng chọn giờ khám hợp lệ!"})
         try:
             sheet_ngay_kham = spreadsheet.worksheet(ngay_kham)
