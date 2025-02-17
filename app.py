@@ -95,5 +95,10 @@ def dang_ky():
 
     return render_template("index.html")
 
+#if __name__ == "__main__":
+#    app.run(debug=True, host="127.0.0.1", port=5000)
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    # Lắng nghe trên tất cả các địa chỉ IP và cổng do Render cung cấp
+    port = int(os.environ.get("PORT", 5000))  # Cổng mặc định là 5000 nếu không có biến môi trường
+    app.run(debug=True, host="0.0.0.0", port=port)
+
