@@ -66,30 +66,37 @@ def dang_ky():
         ngay_sinh = request.form.get("dob")
         ngay_kham = request.form.get("date")
         gio_kham = request.form.get("time")
+        email = request.form.get("email")
+        tel = request.form.get("tel")
+        description = request.form.get("description")
+        note = request.form.get("note")
+        trang_thai = request.form.get("trangthai")
 
         if not ngay_kham or not gio_kham:
-            return "Vui lòng chọn ngày và giờ khám hợp lệ!"
+            #return "Vui lòng chọn ngày và giờ khám hợp lệ!"
+            return jsonify({"error": "Vui lòng chọn ngày và giờ khám hợp lệ!"})
 
         try:
             sheet_ngay_kham = spreadsheet.worksheet(ngay_kham)
         except gspread.exceptions.WorksheetNotFound:
-            sheet_ngay_kham = spreadsheet.add_worksheet(title=ngay_kham, rows="100", cols="4")
-            sheet_ngay_kham.append_row(["Họ tên", "Ngày sinh", "Ngày khám", "Giờ khám"])
+            sheet_ngay_kham = spreadsheet.add_worksheet(title=ngay_kham, rows="100", cols="9")
+            sheet_ngay_kham.append_row(["Họ tên", "Ngày sinh", "Ngày khám", "Giờ khám", "Email", "Số ĐT", "Mô tả bệnh", "Ghi chú", "Trạng thái"])
 
         booked_times = sheet_ngay_kham.col_values(4)[1:]  # Lấy danh sách giờ khám đã đặt
         booked_times = [t.strip() for t in booked_times if t.strip()]
 
         if gio_kham in booked_times:
-            return f"Giờ {gio_kham} vào ngày {ngay_kham} đã có người đặt. Vui lòng chọn giờ khác!"
+            #return f"Giờ {gio_kham} vào ngày {ngay_kham} đã có người đặt. Vui lòng chọn giờ khác!"
+            return jsonify({"error": f"Giờ {gio_kham} vào ngày {ngay_kham} đã có người đặt. Vui lòng chọn giờ khác!"})
 
         try:
             sheet_tong_hop = spreadsheet.worksheet("Tong_Hop")
         except gspread.exceptions.WorksheetNotFound:
-            sheet_tong_hop = spreadsheet.add_worksheet(title="Tong_Hop", rows="1000", cols="4")
-            sheet_tong_hop.append_row(["Họ tên", "Ngày sinh", "Ngày khám", "Giờ khám"])
+            sheet_tong_hop = spreadsheet.add_worksheet(title="Tong_Hop", rows="1000", cols="9")
+            sheet_tong_hop.append_row(["Họ tên", "Ngày sinh", "Ngày khám", "Giờ khám", "Email", "Số ĐT", "Mô tả bệnh", "Ghi chú", "Trạng thái"])
 
-        sheet_tong_hop.append_row([ten, ngay_sinh, ngay_kham, gio_kham])
-        sheet_ngay_kham.append_row([ten, ngay_sinh, ngay_kham, gio_kham])
+        sheet_tong_hop.append_row([ten, ngay_sinh, ngay_kham, gio_kham,email,tel,description,note,trang_thai])
+        sheet_ngay_kham.append_row([ten, ngay_sinh, ngay_kham, gio_kham,email,tel,description,note,trang_thai])
 
         #return f"Đăng ký thành công cho {ten} vào ngày {ngay_kham} lúc {gio_kham}!"
         return jsonify({
