@@ -2,13 +2,18 @@ from datetime import datetime
 from flask import Flask, render_template, request
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2 import service_account
 from flask import jsonify
 
 app = Flask(__name__)
 
+# Đọc đường dẫn file credentials từ thư mục /secrets/
+credentials_path = '/etc/secrets/credentials.json'
+
 # Kết nối Google Sheets
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+#creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+creds = service_account.Credentials.from_service_account_file(credentials_path, scopes=scope)
 client = gspread.authorize(creds)
 
 # Mở Google Sheets
