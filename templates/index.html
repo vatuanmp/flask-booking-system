@@ -103,6 +103,12 @@
                 form.reset();
             }).catch(error => console.error("Error:", error));
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const today = new Date().toISOString().split('T')[0]; // Lấy ngày hiện tại theo định dạng yyyy-mm-dd
+            document.getElementById("date").setAttribute("min", today); // Thiết lập thuộc tính "min" cho input
+        });
+
     </script>
 </body>
 </html>
