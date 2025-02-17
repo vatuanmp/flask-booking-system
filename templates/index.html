@@ -149,28 +149,37 @@
         });
         
         document.getElementById("bookingForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            // Lấy giá trị của trường giờ khám
-            let gio_kham = document.getElementById("time").value;
-    
+            event.preventDefault(); // Ngăn form gửi đi mặc định
+        
+            let gio_kham = document.getElementById("time").value.trim();  // Lấy giá trị giờ khám
+        
             // Kiểm tra nếu không có giờ khám được chọn
             if (!gio_kham) {
-                event.preventDefault();  // Ngừng gửi form
                 alert("Vui lòng chọn giờ khám!");
-                return false;
+                return;  // Dừng lại, không gửi form
             }
-                
+        
             let form = this;
+        
             fetch(form.action, {
                 method: form.method,
                 body: new FormData(form)
-            }).then(response => response.json())
+            })
+            .then(response => response.json())
             .then(data => {
-                alert(data.message);
-                form.reset();
-            }).catch(error => console.error("Error:", error));
+                if (data.error) {
+                    alert(data.error); // Nếu có lỗi từ server, hiển thị thông báo
+                } else {
+                    alert(data.message); // Hiển thị thông báo thành công
+                    form.reset(); // Reset form chỉ khi gửi thành công
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Có lỗi xảy ra. Vui lòng thử lại sau!");
+            });
         });
+
 
         document.addEventListener("DOMContentLoaded", function() {
             const today = new Date().toISOString().split('T')[0]; // Lấy ngày hiện tại theo định dạng yyyy-mm-dd
