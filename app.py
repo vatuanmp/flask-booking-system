@@ -70,8 +70,9 @@ def dang_ky():
         tel = request.form.get("tel")
         description = request.form.get("description")
         note = request.form.get("note")
-        trang_thai = request.form.get("trangthai")
-
+        #trang_thai = request.form.get("trangthai")
+        trang_thai = "Chưa khám"
+        
         if not ngay_kham or not gio_kham:
             #return "Vui lòng chọn ngày và giờ khám hợp lệ!"
             return jsonify({"error": "Vui lòng chọn ngày và giờ khám hợp lệ!"})
