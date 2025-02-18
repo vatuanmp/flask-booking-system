@@ -43,7 +43,14 @@
             padding: 10px 0; 
             word-wrap: break-word;
         }
-    
+
+        .note {
+            font-size: 14px;
+            color: gray;
+            font-style: italic;
+            margin-top: -10px; /* Để dòng chữ gần với tiêu đề hơn */
+        }
+
         label {
             font-weight: bold;
             margin-top: 10px;
@@ -106,31 +113,32 @@
 <body>
     <div class="container">
         <h1>Đặt lịch khám bệnh</h1>
+        <p class="note">(Có dấu * là bắt buộc)</p>
         <form action="/" method="post" id="bookingForm">
-            <label for="name">Họ tên (bắt buộc):</label>
+            <label for="name">Họ tên*:</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="dob">Ngày sinh (bắt buộc):</label>
+            <label for="dob">Ngày sinh*:</label>
             <input type="date" id="dob" name="dob" required>
 
-            <label for="date">Chọn ngày khám (bắt buộc):</label>
+            <label for="date">Chọn ngày khám*:</label>
             <input type="date" id="date" name="date" required>
 
-            <label for="time">Chọn giờ khám (bắt buộc):</label>
+            <label for="time">Chọn giờ khám*:</label>
             <select id="time" name="time">
                 <option value="">Chọn giờ</option>
             </select>
 
-            <label for="email">Email (không bắt buộc):</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email">
 
-            <label for="tel">Số điện thoại  (bắt buộc):</label>
+            <label for="tel">Số điện thoại*:</label>
             <input type="tel" id="tel" name="tel">
             
-            <label for="description">Mô tả bệnh (không bắt buộc):</label>
+            <label for="description">Mô tả bệnh:</label>
             <textarea id="description" name="description" rows="3"></textarea>
 
-            <label for="note">Ghi chú (không bắt buộc):</label>
+            <label for="note">Ghi chú:</label>
             <textarea id="note" name="note" rows="3"></textarea>
             
             <button type="submit">Đăng ký</button>
